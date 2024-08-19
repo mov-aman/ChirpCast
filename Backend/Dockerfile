@@ -1,13 +1,15 @@
-FROM python:3.10-slim-buster
+FROM node:18-slim
 
 WORKDIR /Backend
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+COPY package*.json ./
+
+RUN npm install
 
 COPY . .
 
-ENV FLASK_ENV=development
+ENV NODE_ENV=development
 
 EXPOSE ${PORT}
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
+
+CMD [ "node", "server.js" ]
