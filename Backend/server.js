@@ -4,15 +4,15 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 // Import your services here
-// const { UserActivities } = require('./Services/user_activities');
-// const { HomeActivities } = require('./Services/home_activities');
-// const { CreateActivity } = require('./Services/create_activity');
-// const { CreateReply } = require('./Services/create_reply');
-// const { SearchActivities } = require('./Services/search_activities');
-// const { MessageGroups } = require('./Services/message_groups');
-// const { Messages } = require('./Services/messages');
-// const { CreateMessage } = require('./Services/create_message');
-// const { ShowActivity } = require('./Services/show_activity');
+const { UserActivities } = require('./Services/user_activities');
+const { HomeActivities } = require('./Services/home_activities');
+const { CreateActivity } = require('./Services/create_activity');
+const { CreateReply } = require('./Services/create_reply');
+const { SearchActivities } = require('./Services/search_activities');
+const { MessageGroups } = require('./Services/message_groups');
+const { Messages } = require('./Services/messages');
+const { CreateMessage } = require('./Services/create_message');
+const { ShowActivity } = require('./Services/show_activity');
 
 const app = express();
 const frontend = process.env.FRONTEND_URL;
@@ -29,7 +29,7 @@ app.use(cors({
 app.use(bodyParser.json());
 
 app.get('/api/message_groups', async (req, res) => {
-    const userHandle = 'movaman';
+    const userHandle = 'amansingh';
     const model = await MessageGroups.run({ user_handle: userHandle });
     
     if (model.errors) {
@@ -40,7 +40,7 @@ app.get('/api/message_groups', async (req, res) => {
 });
 
 app.get('/api/messages', async (req, res) => {
-    const userSenderHandle = 'movaman';
+    const userSenderHandle = 'amansingh';
     const userReceiverHandle = req.query.user_receiver_handle;
 
     const model = await Messages.run({ user_sender_handle: userSenderHandle, user_receiver_handle: userReceiverHandle });
@@ -53,7 +53,7 @@ app.get('/api/messages', async (req, res) => {
 });
 
 app.post('/api/messages', cors(), async (req, res) => {
-    const userSenderHandle = 'movaman';
+    const userSenderHandle = 'amansingh';
     const { user_receiver_handle, message } = req.body;
 
     const model = await CreateMessage.run({ message, user_sender_handle: userSenderHandle, user_receiver_handle });
@@ -93,7 +93,7 @@ app.get('/api/activities/search', async (req, res) => {
 });
 
 app.post('/api/activities', cors(), async (req, res) => {
-    const userHandle = 'movaman';
+    const userHandle = 'amansingh';
     const { message, ttl } = req.body;
 
     const model = await CreateActivity.run({ message, user_handle: userHandle, ttl });
@@ -112,7 +112,7 @@ app.get('/api/activities/:activity_uuid', async (req, res) => {
 });
 
 app.post('/api/activities/:activity_uuid/reply', cors(), async (req, res) => {
-    const userHandle = 'movaman';
+    const userHandle = 'amansingh';
     const activityUuid = req.params.activity_uuid;
     const { message } = req.body;
 
